@@ -1,0 +1,33 @@
+{
+  "name": "@shalgam/query",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "TanStack Query foundation for Shalgam: QueryClient defaults, query-key factories and shared query options.",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@shalgam/api-client": "workspace:*",
+    "@shalgam/types": "workspace:*",
+    "@tanstack/react-query": "^5.103.1"
+  },
+  "devDependencies": {
+    "@shalgam/eslint-config": "workspace:*",
+    "@shalgam/tsconfig": "workspace:*",
+    "@types/react": "^19.3.0",
+    "eslint": "^9.39.5",
+    "react": "^19.3.0",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.1"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

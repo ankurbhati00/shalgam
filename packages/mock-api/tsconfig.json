@@ -1,0 +1,5 @@
+{
+  "extends": "@shalgam/tsconfig/library.json",
+  "compilerOptions": { "types": ["vite/client"] },
+  "include": ["src"]
+}

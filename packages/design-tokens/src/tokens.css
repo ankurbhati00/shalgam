@@ -1,0 +1,407 @@
+/* ==========================================================================
+   Shalgam Design Tokens
+   --------------------------------------------------------------------------
+   Layer 1 — Primitive palette + scales (Tailwind @theme). These generate
+             utilities such as `bg-brand-400` and `rounded-xl`.
+   Layer 2 — Semantic tokens (`:root`, `[data-theme="dark"]`). Components
+             reference these (`bg-surface`, `text-text-muted`, `bg-primary`)
+             so themes can change without touching component code.
+   ========================================================================== */
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* `static` emits every token as a CSS variable even when no utility uses it, so
+   charts, inline styles and third-party code can reference `var(--color-*)` safely. */
+@theme static {
+  /* --- Reset Tailwind's default palette: Shalgam only ships its own colors --- */
+  --color-*: initial;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* --- Brand: signature lime / chartreuse --- */
+  --color-brand-50: oklch(98.4% 0.035 118);
+  --color-brand-100: oklch(96.2% 0.085 118);
+  --color-brand-200: oklch(93.5% 0.15 119);
+  --color-brand-300: oklch(91.5% 0.19 120);
+  --color-brand-400: oklch(89.5% 0.215 122);
+  --color-brand-500: oklch(84% 0.215 124);
+  --color-brand-600: oklch(70% 0.185 126);
+  --color-brand-700: oklch(56% 0.145 128);
+  --color-brand-800: oklch(44% 0.11 130);
+  --color-brand-900: oklch(35% 0.08 131);
+  --color-brand-950: oklch(24% 0.05 132);
+
+  /* --- Neutral: warm, slightly stone-tinted grays --- */
+  --color-neutral-50: oklch(98.6% 0.003 85);
+  --color-neutral-100: oklch(97% 0.004 85);
+  --color-neutral-200: oklch(93.2% 0.006 85);
+  --color-neutral-300: oklch(88% 0.008 85);
+  --color-neutral-400: oklch(73% 0.011 85);
+  --color-neutral-500: oklch(55% 0.013 85);
+  --color-neutral-600: oklch(49% 0.013 85);
+  --color-neutral-700: oklch(39% 0.012 85);
+  --color-neutral-800: oklch(29% 0.01 85);
+  --color-neutral-900: oklch(22% 0.008 85);
+  --color-neutral-950: oklch(15.5% 0.006 85);
+
+  /* --- Status scales (kept distinct from the lime brand hue) --- */
+  --color-success-50: oklch(97.5% 0.03 152);
+  --color-success-100: oklch(94% 0.07 152);
+  --color-success-200: oklch(88% 0.12 152);
+  --color-success-500: oklch(64% 0.17 152);
+  --color-success-600: oklch(56% 0.16 152);
+  --color-success-700: oklch(44% 0.12 152);
+  --color-success-900: oklch(30% 0.07 152);
+
+  --color-warning-50: oklch(98% 0.03 78);
+  --color-warning-100: oklch(95% 0.08 78);
+  --color-warning-200: oklch(90% 0.13 78);
+  --color-warning-500: oklch(80% 0.165 72);
+  --color-warning-600: oklch(70% 0.165 65);
+  --color-warning-700: oklch(46% 0.12 55);
+  --color-warning-900: oklch(36% 0.08 55);
+
+  --color-danger-50: oklch(97.5% 0.015 22);
+  --color-danger-100: oklch(94% 0.04 22);
+  --color-danger-200: oklch(88% 0.08 22);
+  --color-danger-500: oklch(62% 0.21 25);
+  --color-danger-600: oklch(55% 0.21 26);
+  --color-danger-700: oklch(47% 0.18 27);
+  --color-danger-900: oklch(30% 0.1 27);
+
+  --color-info-50: oklch(97.5% 0.015 250);
+  --color-info-100: oklch(94.5% 0.04 250);
+  --color-info-200: oklch(89% 0.08 252);
+  --color-info-500: oklch(60% 0.18 255);
+  --color-info-600: oklch(52% 0.19 256);
+  --color-info-700: oklch(45% 0.16 257);
+  --color-info-900: oklch(30% 0.09 258);
+
+  /* --- Playful tints for category tiles, illustrations, avatars --- */
+  --color-tint-lime: oklch(96% 0.08 118);
+  --color-tint-mint: oklch(95.5% 0.05 160);
+  --color-tint-sky: oklch(95.5% 0.04 235);
+  --color-tint-lavender: oklch(95.5% 0.04 295);
+  --color-tint-peach: oklch(95.5% 0.045 45);
+  --color-tint-butter: oklch(96.5% 0.07 90);
+  --color-tint-rose: oklch(95.5% 0.04 5);
+
+  /* --- Typography --- */
+  --font-sans:
+    'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Noto Sans', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
+  /* --- Radius --- */
+  --radius-*: initial;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+  --radius-3xl: 2.25rem;
+  --radius-full: 9999px;
+
+  /* --- Elevation: soft, warm-tinted shadows --- */
+  --shadow-*: initial;
+  --shadow-xs: 0 1px 2px 0 oklch(20% 0.01 85 / 0.05);
+  --shadow-sm: 0 1px 3px 0 oklch(20% 0.01 85 / 0.06), 0 1px 2px -1px oklch(20% 0.01 85 / 0.06);
+  --shadow-md: 0 4px 10px -2px oklch(20% 0.01 85 / 0.08), 0 2px 4px -2px oklch(20% 0.01 85 / 0.05);
+  --shadow-lg: 0 12px 24px -6px oklch(20% 0.01 85 / 0.12), 0 4px 8px -4px oklch(20% 0.01 85 / 0.06);
+  --shadow-xl: 0 24px 48px -12px oklch(20% 0.01 85 / 0.18);
+  --shadow-brand: 0 8px 20px -6px oklch(70% 0.185 126 / 0.45);
+
+  /* --- Motion --- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  --animate-fade-in: fade-in 180ms var(--ease-out-soft) both;
+  --animate-fade-out: fade-out 140ms var(--ease-in-out-soft) both;
+  --animate-scale-in: scale-in 180ms var(--ease-out-soft) both;
+  --animate-scale-out: scale-out 140ms var(--ease-in-out-soft) both;
+  --animate-slide-up: slide-up 220ms var(--ease-out-soft) both;
+  --animate-slide-down: slide-down 220ms var(--ease-out-soft) both;
+  --animate-slide-in-right: slide-in-right 260ms var(--ease-out-soft) both;
+  --animate-slide-in-left: slide-in-left 260ms var(--ease-out-soft) both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-pop: pop 280ms var(--ease-spring) both;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes scale-out {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slide-in-left {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.85);
+    }
+    60% {
+      transform: scale(1.06);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Layer 2 — Semantic tokens
+   -------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --background: var(--color-neutral-50);
+  --surface: var(--color-white);
+  --surface-muted: var(--color-neutral-100);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-inverse: var(--color-neutral-900);
+  --overlay: oklch(15% 0.006 85 / 0.55);
+
+  --border: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
+  --border-subtle: var(--color-neutral-100);
+
+  --text: var(--color-neutral-900);
+  /* neutral-600 ≈ 7:1 and neutral-500 ≈ 4.6:1 on white: both pass AA for small text. */
+  --text-muted: var(--color-neutral-600);
+  --text-subtle: var(--color-neutral-500);
+  --text-inverse: var(--color-white);
+
+  --primary: var(--color-brand-400);
+  --primary-hover: var(--color-brand-500);
+  --primary-active: var(--color-brand-600);
+  --primary-foreground: var(--color-neutral-950);
+  --primary-muted: var(--color-brand-100);
+  /* brand-800 keeps ≥ 4.5:1 on white and on the lime tint (links, badge text). */
+  --primary-strong: var(--color-brand-800);
+
+  --success: var(--color-success-600);
+  --success-foreground: var(--color-white);
+  --success-muted: var(--color-success-50);
+  --success-text: var(--color-success-700);
+
+  --warning: var(--color-warning-500);
+  --warning-foreground: var(--color-neutral-950);
+  --warning-muted: var(--color-warning-50);
+  --warning-text: var(--color-warning-700);
+
+  --danger: var(--color-danger-600);
+  --danger-foreground: var(--color-white);
+  --danger-muted: var(--color-danger-50);
+  --danger-text: var(--color-danger-700);
+
+  --info: var(--color-info-600);
+  --info-foreground: var(--color-white);
+  --info-muted: var(--color-info-50);
+  --info-text: var(--color-info-700);
+
+  --ring: var(--color-brand-600);
+  --skeleton: var(--color-neutral-200);
+  --skeleton-highlight: var(--color-neutral-100);
+
+  /* Categorical data palette: hue-separated, each ≥ 3:1 against the light surface. */
+  --chart-1: oklch(56% 0.17 130);
+  --chart-2: oklch(53% 0.17 255);
+  --chart-3: oklch(60% 0.15 55);
+  --chart-4: oklch(54% 0.16 300);
+  --chart-5: oklch(54% 0.12 200);
+  --chart-6: oklch(56% 0.19 15);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --background: var(--color-neutral-950);
+  --surface: var(--color-neutral-900);
+  --surface-muted: var(--color-neutral-800);
+  --surface-subtle: oklch(19% 0.007 85);
+  --surface-inverse: var(--color-neutral-50);
+  --overlay: oklch(5% 0.005 85 / 0.7);
+
+  --border: oklch(30% 0.01 85);
+  --border-strong: var(--color-neutral-700);
+  --border-subtle: oklch(25% 0.009 85);
+
+  --text: var(--color-neutral-50);
+  --text-muted: var(--color-neutral-400);
+  --text-subtle: var(--color-neutral-500);
+  --text-inverse: var(--color-neutral-950);
+
+  --primary: var(--color-brand-400);
+  --primary-hover: var(--color-brand-300);
+  --primary-active: var(--color-brand-500);
+  --primary-foreground: var(--color-neutral-950);
+  --primary-muted: oklch(30% 0.07 128);
+  --primary-strong: var(--color-brand-300);
+
+  --success: var(--color-success-500);
+  --success-foreground: var(--color-neutral-950);
+  --success-muted: oklch(26% 0.05 152);
+  --success-text: var(--color-success-200);
+
+  --warning: var(--color-warning-500);
+  --warning-foreground: var(--color-neutral-950);
+  --warning-muted: oklch(28% 0.06 70);
+  --warning-text: var(--color-warning-200);
+
+  --danger: var(--color-danger-500);
+  --danger-foreground: var(--color-white);
+  --danger-muted: oklch(27% 0.07 25);
+  --danger-text: var(--color-danger-200);
+
+  --info: var(--color-info-500);
+  --info-foreground: var(--color-white);
+  --info-muted: oklch(27% 0.06 255);
+  --info-text: var(--color-info-200);
+
+  --ring: var(--color-brand-400);
+  --skeleton: var(--color-neutral-800);
+  --skeleton-highlight: var(--color-neutral-700);
+
+  /* Lighter, lower-chroma chart hues that stay ≥ 3:1 on the dark surface. */
+  --chart-1: oklch(78% 0.18 128);
+  --chart-2: oklch(72% 0.14 255);
+  --chart-3: oklch(78% 0.15 60);
+  --chart-4: oklch(72% 0.14 300);
+  --chart-5: oklch(75% 0.12 200);
+  --chart-6: oklch(72% 0.17 15);
+}
+
+/* Expose semantic tokens as Tailwind color utilities: bg-surface, text-text-muted, border-border …
+   `static` keeps every alias in the output so JS consumers (charts) can read them. */
+@theme static inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-inverse: var(--surface-inverse);
+  --color-overlay: var(--overlay);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-active: var(--primary-active);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-muted: var(--primary-muted);
+  --color-primary-strong: var(--primary-strong);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-muted: var(--success-muted);
+  --color-success-text: var(--success-text);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-muted: var(--warning-muted);
+  --color-warning-text: var(--warning-text);
+
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-danger-muted: var(--danger-muted);
+  --color-danger-text: var(--danger-text);
+
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-muted: var(--info-muted);
+  --color-info-text: var(--info-text);
+
+  --color-ring: var(--ring);
+  --color-skeleton: var(--skeleton);
+  --color-skeleton-highlight: var(--skeleton-highlight);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+}

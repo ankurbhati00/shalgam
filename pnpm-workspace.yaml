@@ -1,0 +1,8 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# Native/postinstall build scripts we explicitly trust.
+allowBuilds:
+  esbuild: true
+  msw: true

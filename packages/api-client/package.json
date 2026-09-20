@@ -1,0 +1,26 @@
+{
+  "name": "@shalgam/api-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Typed HTTP transport and resource services for the Shalgam REST API.",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@shalgam/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@shalgam/eslint-config": "workspace:*",
+    "@shalgam/tsconfig": "workspace:*",
+    "eslint": "^9.39.5",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.1"
+  }
+}

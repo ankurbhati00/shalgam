@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Introduction" />
+
+<div className="sb-unstyled">
+
+<div style={{ display: 'inline-flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+  <span
+    style={{
+      display: 'inline-flex',
+      width: 40,
+      height: 40,
+      borderRadius: 12,
+      background: '#c9f24a',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontWeight: 800,
+      color: '#141410',
+      fontSize: 22,
+    }}
+  >
+    S
+  </span>
+  <h1 style={{ margin: 0, fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em' }}>Shalgam UI</h1>
+</div>
+
+**Shalgam UI** is the shared design system behind the Shalgam quick-commerce platform. It powers two very different products — the consumer **Storefront** and the operational **Admin** — from one set of tokens, primitives and patterns.
+
+</div>
+
+## What lives here
+
+| Layer         | Package                         | Role                                                                                             |
+| ------------- | ------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Design tokens | `@shalgam/tokens`               | Colour, type, spacing, radius, elevation and motion as CSS custom properties + Tailwind `@theme` |
+| Primitives    | `@base-ui-components/react`     | Unstyled, accessible behaviour (focus management, keyboard interaction, ARIA)                    |
+| Components    | `@shalgam/ui`                   | Styled, opinionated Shalgam components with a stable API                                         |
+| Applications  | `apps/storefront`, `apps/admin` | Features composed from Shalgam UI; never from Base UI directly                                   |
+
+## How to read these docs
+
+- **Foundations** explain the visual language: colours, typography, spacing, radius, shadows, icons and motion. Every value is a token.
+- **Components** are grouped by job: Buttons, Forms, Navigation, Overlays, Data and Commerce. Each story shows variants, sizes, states and realistic usage.
+- **Design Tokens** lists every semantic token with its light and dark value.
+
+## Principles in one breath
+
+Fresh, fast, friendly, trustworthy. Lime is the signature — used sparingly for the one action that matters. Surfaces stay light and quiet so produce photography and data can breathe.
+
+## Using a component
+
+```tsx
+import { Button, Price, ProductImage, QuantitySelector } from '@shalgam/ui'
+import '@shalgam/ui/styles.css' // once, at the app root
+
+<Button leadingIcon={<ShoppingCart />}>Add to cart</Button>
+<Price amount={24} mrp={32} />
+```
+
+Components accept `className` for layout concerns only. Colours, radii and type come from tokens — if you find yourself hard-coding a hex value, the token is missing and should be added instead.

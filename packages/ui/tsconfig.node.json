@@ -1,0 +1,14 @@
+{
+  "extends": "@shalgam/tsconfig/node.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM"],
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
+  },
+  "include": [
+    "vite.config.ts",
+    "vitest.config.ts",
+    ".storybook/main.ts",
+    ".storybook/manager.ts",
+    ".storybook/theme.ts"
+  ]
+}

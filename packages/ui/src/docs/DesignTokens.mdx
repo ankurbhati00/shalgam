@@ -1,0 +1,64 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Design Tokens" />
+
+# Design tokens
+
+Tokens live in `@shalgam/tokens` (`src/tokens.css`) and are consumed two ways:
+
+1. **Tailwind utilities** — every `--color-*`, `--radius-*`, `--shadow-*` and `--animate-*` entry under `@theme` becomes a utility class (`bg-brand-400`, `rounded-xl`, `shadow-md`, `animate-fade-in`).
+2. **CSS custom properties** — semantic tokens (`--color-surface`, `--color-text-muted`) are read directly in CSS, charts and SVG, so themes work everywhere.
+
+## Semantic colour tokens
+
+| Token                                  | Light                  | Dark                     | Use                                     |
+| -------------------------------------- | ---------------------- | ------------------------ | --------------------------------------- |
+| `--color-background`                   | neutral-50             | neutral-950              | Page background                         |
+| `--color-surface`                      | white                  | neutral-900              | Cards, sheets, tables                   |
+| `--color-surface-muted`                | neutral-100            | neutral-800              | Tiles, secondary buttons, table headers |
+| `--color-border`                       | neutral-200            | ~neutral-800             | Default borders                         |
+| `--color-border-strong`                | neutral-300            | neutral-700              | Inputs, outlines                        |
+| `--color-text`                         | neutral-900            | neutral-50               | Primary text                            |
+| `--color-text-muted`                   | neutral-500            | neutral-400              | Secondary text, labels                  |
+| `--color-text-subtle`                  | neutral-400            | neutral-500              | Placeholders, icons                     |
+| `--color-primary`                      | brand-400              | brand-400                | Primary CTA, selection                  |
+| `--color-primary-foreground`           | neutral-950            | neutral-950              | Text on primary                         |
+| `--color-primary-strong`               | brand-800              | brand-300                | Links, active text on light surfaces    |
+| `--color-primary-muted`                | brand-100              | brand tint               | Selected rows, soft badges              |
+| `--color-success` / `-muted` / `-text` | success-600 / 50 / 700 | success-500 / tint / 200 | Positive status                         |
+| `--color-warning` / `-muted` / `-text` | warning-500 / 50 / 700 | warning-500 / tint / 200 | Attention                               |
+| `--color-danger` / `-muted` / `-text`  | danger-600 / 50 / 700  | danger-500 / tint / 200  | Destructive, errors                     |
+| `--color-info` / `-muted` / `-text`    | info-600 / 50 / 700    | info-500 / tint / 200    | Neutral status                          |
+| `--color-ring`                         | brand-600              | brand-400                | Focus ring                              |
+
+## Primitive scales
+
+- **Brand** `brand-50 … brand-950` — lime/chartreuse. `400` is the CTA colour; `800` is the text colour on light backgrounds (AA contrast).
+- **Neutral** `neutral-50 … neutral-950` — warm, stone-tinted greys.
+- **Status** `success`, `warning`, `danger`, `info` — each with `50/100/200/500/600/700/900`.
+- **Tints** `tint-lime | mint | sky | lavender | peach | butter | rose` — pastel backgrounds for category tiles and avatars.
+- **Chart** `chart-1 … chart-6` — hue-separated categorical palette for data visualisation; semantic (re-mapped for dark surfaces) and emitted statically so chart libraries can read `var(--color-chart-n)`.
+
+## Typography
+
+`--font-sans` is **Plus Jakarta Sans Variable**, a friendly geometric sans with clear numerals; tables opt into tabular figures via the `tabular` utility. Sizes follow Tailwind's scale plus `text-2xs` (11px) for dense admin labels.
+
+## Radius
+
+| Token                  | Value       | Use                          |
+| ---------------------- | ----------- | ---------------------------- |
+| `--radius-xs`          | 4px         | Checkboxes, tiny chips       |
+| `--radius-sm`          | 8px         | Inputs (compact), menu items |
+| `--radius-md`          | 12px        | Inputs, table containers     |
+| `--radius-lg`          | 16px        | Cards, popovers              |
+| `--radius-xl`          | 20px        | Dialogs, hero cards          |
+| `--radius-2xl` / `3xl` | 28px / 36px | Sheets, promo tiles          |
+| `--radius-full`        | 9999px      | Buttons, badges, steppers    |
+
+## Elevation
+
+`shadow-xs` (inputs) → `shadow-sm` (cards) → `shadow-md` (hover, popovers) → `shadow-lg` (menus, drawers) → `shadow-xl` (dialogs). `shadow-brand` is a lime glow reserved for the floating cart button.
+
+## Motion
+
+Durations: 140 ms (fast), 180 ms (base), 260 ms (slow). Easings: `--ease-out-soft` for entrances, `--ease-in-out-soft` for exits, `--ease-spring` for the add-to-cart pop. Named animations: `fade-in/out`, `scale-in/out`, `slide-up/down`, `slide-in-left/right`, `shimmer`, `pop`.

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fbfaf8" />
+    <meta
+      name="description"
+      content="Shalgam Admin — operations, catalog, inventory and analytics."
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Shalgam Admin</title>
+    <script>
+      // Apply the persisted theme before first paint so dark mode never flashes light.
+      try {
+        var stored = JSON.parse(localStorage.getItem('shalgam:admin:ui:v1') || 'null')
+        if (stored && stored.state && stored.state.theme === 'dark')
+          document.documentElement.dataset.theme = 'dark'
+      } catch (_error) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

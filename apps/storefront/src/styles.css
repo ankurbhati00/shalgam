@@ -1,0 +1,12 @@
+@import '@shalgam/ui/styles.css';
+
+/* Scan this app's own components for Tailwind classes. */
+@source './';
+
+@layer base {
+  :root {
+    /* Height of the phone tab bar (BottomNavigation is h-14). Sticky action bars and the
+       main content's bottom padding are offset by it so nothing hides behind the bar. */
+    --bottom-nav-height: 3.5rem;
+  }
+}

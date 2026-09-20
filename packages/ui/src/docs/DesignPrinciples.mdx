@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Design Principles" />
+
+# Design principles
+
+These principles decide ties. When two implementations both "work", the one that better honours the principles wins.
+
+## 1. Lime is a highlight, not a background
+
+The chartreuse brand colour (`--color-primary`) marks the single most important action on a screen — _Add to cart_, _Place order_, _Save product_ — plus selected and active states. Everything else is neutral. A screen that is mostly lime has lost its hierarchy.
+
+## 2. Photography and data come first
+
+Shalgam sells fresh produce and runs an operations team. Product imagery and numbers are the content; the UI is the frame. Surfaces are white and warm-neutral, borders are soft, shadows are low. Nothing competes with a tomato or a revenue chart.
+
+## 3. Semantics before styling
+
+Every component starts from the correct HTML element and ARIA pattern (via Base UI) and only then gets styled. A `Button` is a `<button>`, a `Dialog` traps focus, a `DataTable` is a real `<table>` with `aria-sort`. Screen-reader users and keyboard users get the same product, not a lesser one.
+
+## 4. Two products, one family
+
+The Storefront is spacious, image-heavy and playful; the Admin is dense, analytical and calm. They share tokens, radii, type and components. The difference is composition and density — never a second colour palette or a second button.
+
+## 5. States are part of the design
+
+Loading, empty and error states ship with every data component. A screen is not done until it has been seen with no data, with a failed request and with a 40-character product name.
+
+## 6. Motion explains, never decorates
+
+Transitions are short (140–260 ms), eased with `--ease-out-soft`, and only used to connect cause and effect: a sheet sliding from the edge it came from, a toast rising into place. Everything respects `prefers-reduced-motion`.
+
+## 7. Prefer composition to configuration
+
+Components expose a few strong variants and slots (`leadingIcon`, `actions`, `render`) rather than dozens of boolean props. Domain behaviour (cart rules, order status flows) belongs in the apps, not in the design system.
+
+## 8. Indian by default
+
+Currency is rupees with lakh/crore grouping (`₹1,24,999`), dates use `en-IN`, phone numbers assume `+91`, and copy is warm and direct.

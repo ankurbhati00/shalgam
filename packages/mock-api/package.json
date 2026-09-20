@@ -1,0 +1,33 @@
+{
+  "name": "@shalgam/mock-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Mock REST backend for Shalgam built on MSW: seeded in-memory database, REST handlers, latency and error simulation.",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./browser": "./src/browser.ts",
+    "./node": "./src/node.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@mswjs/interceptors": "^0.41.9",
+    "@shalgam/types": "workspace:*",
+    "@shalgam/utils": "workspace:*",
+    "msw": "^2.15.0"
+  },
+  "devDependencies": {
+    "@shalgam/eslint-config": "workspace:*",
+    "@shalgam/tsconfig": "workspace:*",
+    "@types/node": "^24.0.0",
+    "eslint": "^9.39.5",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1"
+  }
+}

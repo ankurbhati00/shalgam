@@ -1,0 +1,4 @@
+{
+  "extends": "@shalgam/tsconfig/library.json",
+  "include": ["src"]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@shalgam/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shalgam design tokens: colors, typography, spacing, radius, shadows and motion as CSS custom properties and typed constants.",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./css": "./src/tokens.css"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@shalgam/eslint-config": "workspace:*",
+    "@shalgam/tsconfig": "workspace:*",
+    "eslint": "^9.39.5",
+    "typescript": "~6.0.3"
+  }
+}

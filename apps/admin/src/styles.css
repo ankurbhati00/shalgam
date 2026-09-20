@@ -1,0 +1,4 @@
+@import '@shalgam/ui/styles.css';
+
+/* Scan this app's own components for Tailwind classes. */
+@source './';

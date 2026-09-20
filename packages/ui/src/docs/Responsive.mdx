@@ -1,0 +1,46 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks'
+
+import * as Responsive from '../foundations/responsive.stories'
+
+<Meta of={Responsive} />
+
+# Responsive
+
+One application, one set of components, different presentation per viewport. Shalgam never ships separate mobile and desktop screens: layouts are written mobile-first with Tailwind breakpoint prefixes, and only interactions that genuinely differ by device (a filter sheet versus a sidebar, a sticky action bar versus a side column) get a second presentation, usually through CSS alone.
+
+## Breakpoints
+
+<Canvas of={Responsive.Breakpoints} />
+
+## Rules of thumb
+
+| Concern           | Rule                                                                                                                                                                                             |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Page gutters      | `Container` gives 16px on phones and 24px from `sm`; content caps at 80rem (`xl`).                                                                                                               |
+| Flex and grid     | Every shrinking child gets `min-w-0`; long text truncates or clamps (`line-clamp-2`) instead of pushing siblings.                                                                                |
+| Widths            | Fixed widths only for things that are genuinely fixed (thumbnails, icon buttons). Everything else is `w-full` plus a `max-w-*`.                                                                  |
+| Viewport height   | `dvh` units (`min-h-dvh`, `max-h-[85dvh]`) so mobile browser chrome and the on-screen keyboard do not clip sheets.                                                                               |
+| Safe areas        | Fixed and sticky bottom elements add `env(safe-area-inset-bottom)` through the `safe-bottom` utility.                                                                                            |
+| Horizontal scroll | Only inside deliberate scrollers (rails, pill tabs) that use `overflow-x-auto` and `scrollbar-none`; never on the page itself.                                                                   |
+| Typography        | `Heading` sizes step down on phones (`text-2xl md:text-3xl`); body text never goes below 12px.                                                                                                   |
+| Duplicate markup  | Allowed only when the two presentations sit in different places of the tree (e.g. an action in a side column vs a sticky bar); the inactive copy is `display: none`, so assistive tech sees one. |
+| JavaScript        | Viewport detection in JS only when interaction changes; `useMediaQuery` and `IntersectionObserver` are the sanctioned tools.                                                                     |
+
+## Touch targets
+
+<Canvas of={Responsive.TouchTargets} />
+
+## Overlays
+
+<Canvas of={Responsive.OverlayPatterns} />
+
+## Sticky action bar
+
+<Canvas of={Responsive.StickyActionBar} />
+
+## Verifying
+
+The repository ships two Playwright scripts that run against a dev server:
+
+- `pnpm qa:responsive` captures every storefront route at 320, 375, 414, 768, 1024 and 1440px, reports horizontal overflow with the elements that cause it, and lists controls under the touch-target floor on phone widths.
+- `pnpm qa:flows` exercises the cart, search, checkout, orders and profile flows on a phone and a desktop viewport and fails on any horizontal overflow.

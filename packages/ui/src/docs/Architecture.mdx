@@ -1,0 +1,72 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Architecture" />
+
+# Architecture
+
+Shalgam is a pnpm + Turborepo monorepo. Packages are consumed as TypeScript source, so there is no build step between a component change and both apps seeing it.
+
+```text
+                    SHALGAM
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+      STOREFRONT                  ADMIN
+          │                         │
+       Features                  Features
+          │                         │
+          └────────────┬────────────┘
+                       │
+                   SHALGAM UI  ← this Storybook
+                       │
+                    Base UI
+                       │
+                 Design Tokens
+```
+
+## Dependency direction
+
+Applications depend on features; features depend on `@shalgam/ui`; `@shalgam/ui` depends on Base UI and `@shalgam/tokens`. Arrows never point the other way. Application code does not import Base UI: if a primitive is missing, it is added to Shalgam UI first, so Base UI stays replaceable.
+
+## Where things live
+
+| Concern              | Location                                   | Examples                                           |
+| -------------------- | ------------------------------------------ | -------------------------------------------------- |
+| Generic, reusable UI | `packages/ui`                              | Button, Dialog, DataTable, ProductImage            |
+| Domain components    | `apps/*/src/features/<feature>/components` | `ProductCard`, `CartDrawer`, `OrderStatusTimeline` |
+| Server state         | TanStack Query via `@shalgam/query`        | products, orders, analytics                        |
+| Client state         | Zustand, inside the feature that owns it   | cart, location, sidebar                            |
+| URL state            | React Router search params                 | search, filters, sort, pagination, date range      |
+| Transport            | `@shalgam/api-client`                      | `api.orders.create()`                              |
+| Mock backend         | `@shalgam/mock-api` (MSW)                  | handlers, seeded database, latency, errors         |
+
+## Component anatomy
+
+Each component folder contains the implementation, an `index.ts` barrel, a story and (where behaviour is non-trivial) a test:
+
+```text
+components/button/
+├── button.tsx
+├── icon-button.tsx
+├── button.stories.tsx
+├── button.test.tsx
+└── index.ts
+```
+
+Styling uses Tailwind utilities against **semantic tokens** (`bg-surface`, `text-text-muted`, `bg-primary`). Variants are declared with `class-variance-authority` and merged with `cn()` so consumers can override layout classes safely.
+
+## Base UI usage
+
+Base UI provides behaviour — focus trapping, roving tab index, typeahead, positioning, form field wiring — through unstyled parts. Shalgam UI wraps those parts in a smaller, opinionated API:
+
+```text
+Base UI Dialog.Root/Portal/Backdrop/Viewport/Popup/Title/Description/Close
+      ↓
+Shalgam Dialog, DialogContent, DialogHeader, DialogTitle, DialogBody, DialogFooter
+      ↓
+apps/admin DeleteProductDialog
+```
+
+## Theming
+
+Semantic tokens are defined on `:root` and overridden under `[data-theme="dark"]`. Components reference only semantic tokens, so a theme switch is a single attribute change with no component work.
