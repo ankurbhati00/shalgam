@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npx --yes pnpm@12.4.1 install --frozen-lockfile",
+  "buildCommand": "npx --yes pnpm@12.4.1 build-storybook",
+  "outputDirectory": "storybook-static",
+  "ignoreCommand": "npx --yes turbo-ignore",
+  "headers": [
+    {
+      "source": "/(.*)\\.(js|css|woff2)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

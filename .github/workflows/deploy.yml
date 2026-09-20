@@ -1,0 +1,86 @@
+name: Deploy
+
+# Every push to main publishes the storefront, the admin and the Storybook to Vercel;
+# pull requests get preview deployments. Builds run here (Vercel CLI "prebuilt"
+# deploys), so Vercel only hosts the static output.
+#
+# One-time setup: `bash scripts/vercel-setup.sh` creates the three Vercel projects and
+# stores VERCEL_TOKEN, VERCEL_ORG_ID and VERCEL_PROJECT_ID_* as repository secrets.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    # Forked pull requests cannot read secrets, so they skip deployment.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: storefront
+            project_secret: VERCEL_PROJECT_ID_STOREFRONT
+          - name: admin
+            project_secret: VERCEL_PROJECT_ID_ADMIN
+          - name: storybook
+            project_secret: VERCEL_PROJECT_ID_STORYBOOK
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets[matrix.project_secret] }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      PRODUCTION: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+    steps:
+      - name: Check secrets
+        id: guard
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Vercel secrets are not set for ${{ matrix.name }}; run scripts/vercel-setup.sh once."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.guard.outputs.configured == 'true'
+
+      - uses: pnpm/action-setup@v4
+        if: steps.guard.outputs.configured == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.guard.outputs.configured == 'true'
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        if: steps.guard.outputs.configured == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Vercel CLI
+        if: steps.guard.outputs.configured == 'true'
+        run: npm install --global vercel@latest
+
+      - name: Pull project settings
+        if: steps.guard.outputs.configured == 'true'
+        run: vercel pull --yes --environment=${{ env.PRODUCTION == 'true' && 'production' || 'preview' }} --token="$VERCEL_TOKEN"
+
+      - name: Build
+        if: steps.guard.outputs.configured == 'true'
+        run: vercel build ${{ env.PRODUCTION == 'true' && '--prod' || '' }} --token="$VERCEL_TOKEN"
+
+      - name: Deploy
+        if: steps.guard.outputs.configured == 'true'
+        run: |
+          url=$(vercel deploy --prebuilt ${{ env.PRODUCTION == 'true' && '--prod' || '' }} --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "### ${{ matrix.name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "$url" >> "$GITHUB_STEP_SUMMARY"
