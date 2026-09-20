@@ -247,7 +247,7 @@ pnpm -C apps/storefront test    # one workspace
 
 The storefront, the admin and the Storybook are three Vercel projects deployed from one repository by [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): every push to `main` builds all three here and publishes them (`vercel build` + `vercel deploy --prebuilt --prod`), and every pull request gets preview deployments. Each project's settings live in a `vercel.json`: the storefront builds from the [repository root](vercel.json) so a plain "Import Git Repository" of this repo deploys it with no settings, while the [admin](apps/admin/vercel.json) and [Storybook](packages/ui/vercel.json) configs apply when a project's **Root Directory** is set to `apps/admin` or `packages/ui`. They pin pnpm 12, define the build command and output directory, add SPA rewrites for React Router and cache headers, and use `turbo-ignore` so a commit that does not touch a project skips its build.
 
-Importing through the Vercel dashboard instead of the script works too: import the repository three times, name the projects `shalgam`, `shalgam-admin` and `shalgam-storybook`, leave the Root Directory empty for `shalgam` and set it for the other two. A deployment that shows `404: NOT_FOUND` almost always means the Root Directory does not match the config above.
+Importing through the Vercel dashboard instead of the script works too: import the repository three times, name the projects `shalgam-app`, `shalgam-admin` and `shalgam-storybook`, leave the Root Directory empty for the storefront and set it for the other two. `.vercel.app` names are global, and `shalgam.vercel.app` already belongs to another account (it answers `DEPLOYMENT_DISABLED`), so a shorter address needs a custom domain added to the project. A deployment that shows `404: NOT_FOUND` almost always means the Root Directory does not match the config above.
 
 One-time setup, from a machine with the [Vercel CLI](https://vercel.com/docs/cli) and [GitHub CLI](https://cli.github.com) logged in:
 
@@ -255,7 +255,7 @@ One-time setup, from a machine with the [Vercel CLI](https://vercel.com/docs/cli
 bash scripts/vercel-setup.sh
 ```
 
-The script creates the projects (`shalgam` → shalgam.vercel.app for the storefront, `shalgam-admin`, `shalgam-storybook`), sets the Root Directory of the admin and Storybook projects, and stores `VERCEL_TOKEN`, `VERCEL_ORG_ID` and the three `VERCEL_PROJECT_ID_*` values as repository secrets. Until those secrets exist the workflow skips deployment with a warning instead of failing. The published apps run against the bundled mock backend (`VITE_API_MOCK` defaults to `true`), so they are fully interactive with no server; point them at a real API with `VITE_API_MOCK=false` and `VITE_API_BASE_URL` as project environment variables.
+The script creates the projects (`shalgam-app` for the storefront, `shalgam-admin`, `shalgam-storybook`; override with `STOREFRONT_PROJECT`, `ADMIN_PROJECT`, `STORYBOOK_PROJECT`), sets the Root Directory of the admin and Storybook projects, and stores `VERCEL_TOKEN`, `VERCEL_ORG_ID` and the three `VERCEL_PROJECT_ID_*` values as repository secrets. Until those secrets exist the workflow skips deployment with a warning instead of failing. The published apps run against the bundled mock backend (`VITE_API_MOCK` defaults to `true`), so they are fully interactive with no server; point them at a real API with `VITE_API_MOCK=false` and `VITE_API_BASE_URL` as project environment variables.
 
 ## Testing on a phone
 

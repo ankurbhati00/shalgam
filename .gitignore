@@ -12,3 +12,4 @@ coverage
 .vite
 .qa
 .vercel
+.env*

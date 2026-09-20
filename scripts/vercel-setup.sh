@@ -32,12 +32,14 @@ fi
 vercel whoami --token="$VERCEL_TOKEN" >/dev/null || { echo "✗ token rejected by Vercel"; exit 1; }
 
 # name | root directory | GitHub secret holding the project id
-# The storefront project is called "shalgam" so it lives at shalgam.vercel.app; it builds from
+# `.vercel.app` names are global: shalgam.vercel.app is already owned by another account, so the
+# storefront defaults to shalgam-app (override with STOREFRONT_PROJECT=<name>). It builds from
 # the repository root (root vercel.json), so its Root Directory stays empty.
+STOREFRONT_PROJECT="${STOREFRONT_PROJECT:-shalgam-app}"
 PROJECTS=(
-  "shalgam||VERCEL_PROJECT_ID_STOREFRONT"
-  "shalgam-admin|apps/admin|VERCEL_PROJECT_ID_ADMIN"
-  "shalgam-storybook|packages/ui|VERCEL_PROJECT_ID_STORYBOOK"
+  "$STOREFRONT_PROJECT||VERCEL_PROJECT_ID_STOREFRONT"
+  "${ADMIN_PROJECT:-shalgam-admin}|apps/admin|VERCEL_PROJECT_ID_ADMIN"
+  "${STORYBOOK_PROJECT:-shalgam-storybook}|packages/ui|VERCEL_PROJECT_ID_STORYBOOK"
 )
 
 ORG_ID=""
@@ -71,5 +73,5 @@ echo "── secrets VERCEL_ORG_ID and VERCEL_TOKEN stored"
 
 echo
 echo "Done. Push to main (or run: gh workflow run deploy.yml) and the Deploy workflow publishes:"
-echo "  https://shalgam.vercel.app   https://shalgam-admin.vercel.app   https://shalgam-storybook.vercel.app"
+echo "  https://$STOREFRONT_PROJECT.vercel.app   https://${ADMIN_PROJECT:-shalgam-admin}.vercel.app   https://${STORYBOOK_PROJECT:-shalgam-storybook}.vercel.app"
 echo "(Vercel adds a suffix when a name is taken; the workflow summary prints the exact URLs.)"
