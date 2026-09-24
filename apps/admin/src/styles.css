@@ -2,3 +2,16 @@
 
 /* Scan this app's own components for Tailwind classes. */
 @source './';
+
+@layer base {
+  /* Recharts focuses internal SVG layers on click, and browsers outline them. Hide those
+     outlines; keyboard users still get the brand focus ring around the whole chart. */
+  .recharts-wrapper :focus {
+    outline: none;
+  }
+  .recharts-wrapper:has(:focus-visible) {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
+  }
+}

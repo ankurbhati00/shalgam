@@ -3,6 +3,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuGroupLabel,
   DropdownMenuItem,
   DropdownMenuSeparator,
@@ -47,14 +48,16 @@ export function UserMenu() {
           </p>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuGroupLabel>Appearance</DropdownMenuGroupLabel>
-        <DropdownMenuCheckboxItem
-          checked={theme === 'dark'}
-          onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-          closeOnClick={false}
-        >
-          Dark theme
-        </DropdownMenuCheckboxItem>
+        <DropdownMenuGroup>
+          <DropdownMenuGroupLabel>Appearance</DropdownMenuGroupLabel>
+          <DropdownMenuCheckboxItem
+            checked={theme === 'dark'}
+            onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+            closeOnClick={false}
+          >
+            Dark theme
+          </DropdownMenuCheckboxItem>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem icon={<Settings />} render={<Link to="/settings" />}>
           Store settings

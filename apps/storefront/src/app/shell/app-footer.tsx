@@ -38,8 +38,7 @@ export function AppFooter() {
         <div className="space-y-3">
           <Logo />
           <Text size="sm" tone="muted" className="max-w-xs">
-            Fresh groceries delivered across Bengaluru in minutes. Fictional portfolio project —
-            nothing here is real.
+            Fresh groceries delivered across Bengaluru in minutes.
           </Text>
         </div>
         {columns.map((column) => (
@@ -65,10 +64,10 @@ export function AppFooter() {
       <div className="border-t border-border-subtle">
         <Container className="flex items-center justify-between py-4">
           <Text size="xs" tone="subtle">
-            © 2026 Shalgam. Built as a design-system showcase.
+            © 2026 Shalgam.
           </Text>
           <Text size="xs" tone="subtle">
-            Made in Bengaluru
+            Made in India with ❤️
           </Text>
         </Container>
       </div>

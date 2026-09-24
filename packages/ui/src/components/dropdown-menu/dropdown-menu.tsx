@@ -128,6 +128,7 @@ export interface DropdownMenuGroupLabelProps extends Omit<BaseMenu.GroupLabel.Pr
   className?: string
 }
 
+/** Heading for a set of items. Must be rendered inside `DropdownMenuGroup` (Base UI requirement). */
 export function DropdownMenuGroupLabel({ className, ...props }: DropdownMenuGroupLabelProps) {
   return (
     <BaseMenu.GroupLabel

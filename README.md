@@ -9,12 +9,29 @@
   <strong>Storefront</strong> · <strong>Admin</strong> · <strong>Shalgam UI</strong> · mock REST backend · one monorepo.
 </p>
 
+<p align="center">
+  <a href="https://shalgam-app.vercel.app/"><strong>Storefront</strong></a> ·
+  <a href="https://shalgam-admin.vercel.app/"><strong>Admin panel</strong></a> ·
+  <a href="https://shalgam-storybook.vercel.app/"><strong>Storybook</strong></a>
+</p>
+
 > Shalgam is a fictional grocery platform built as a senior frontend engineering portfolio project. Every product, customer, order and brand in it is invented. Payments are simulated. The interesting part is not the grocery store — it is the architecture underneath it.
+
+## Live demo
+
+| App                        | Link                                                                  | What to try                                                                        |
+| -------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **Storefront**             | [shalgam-app.vercel.app](https://shalgam-app.vercel.app/)             | Search, filter a category, add to cart, check out with any UPI ID, track the order |
+| **Admin panel**            | [shalgam-admin.vercel.app](https://shalgam-admin.vercel.app/)         | Dashboard and analytics, order table with bulk actions, product CRUD, dark theme   |
+| **Storybook (Shalgam UI)** | [shalgam-storybook.vercel.app](https://shalgam-storybook.vercel.app/) | Foundations, tokens, every component, responsive guidelines                        |
+
+The deployed apps run against the bundled mock backend, so everything is interactive with no server. Data is stored in your browser; the admin's Settings page can reset it. Each push to `main` redeploys all three.
 
 ---
 
 ## Contents
 
+- [Live demo](#live-demo)
 - [What is in the box](#what-is-in-the-box)
 - [Quick start](#quick-start)
 - [Architecture](#architecture)

@@ -45,14 +45,27 @@ export function BottomNavigationItem({
 }: BottomNavigationItemProps) {
   const className = cn(
     'relative flex h-full flex-col items-center justify-center gap-0.5 text-2xs font-medium text-text-muted focus-ring-inset transition-colors',
-    active && 'text-primary-strong',
+    active && 'font-semibold text-text',
   )
   const content = (
     <>
-      <span className="relative [&_svg]:size-5">
+      {/* The active tab sits on a lime pill so it reads at a glance on small screens. */}
+      <span
+        className={cn(
+          'relative inline-flex h-7 w-12 items-center justify-center rounded-full transition-colors duration-150 [&_svg]:size-5',
+          active && 'bg-primary text-primary-foreground [&_svg]:stroke-[2.25]',
+        )}
+      >
         {icon}
         {badge !== undefined && (
-          <span className="absolute -top-1.5 -right-2.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-2xs font-semibold text-primary-foreground tabular">
+          <span
+            className={cn(
+              'absolute -top-1 right-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-2xs font-semibold tabular',
+              active
+                ? 'bg-surface-inverse text-text-inverse'
+                : 'bg-primary text-primary-foreground',
+            )}
+          >
             {badge}
           </span>
         )}

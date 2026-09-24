@@ -10,6 +10,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuGroupLabel,
   DropdownMenuTrigger,
 } from '../dropdown-menu'
@@ -358,22 +359,24 @@ export function DataTableColumnToggle<TData extends RowData>({
         {label}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuGroupLabel>Toggle columns</DropdownMenuGroupLabel>
-        {columns.map((column) => {
-          const headerLabel =
-            column.columnDef.meta?.label ??
-            (typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id)
-          return (
-            <DropdownMenuCheckboxItem
-              key={column.id}
-              checked={column.getIsVisible()}
-              onCheckedChange={(checked) => column.toggleVisibility(checked)}
-              closeOnClick={false}
-            >
-              {headerLabel}
-            </DropdownMenuCheckboxItem>
-          )
-        })}
+        <DropdownMenuGroup>
+          <DropdownMenuGroupLabel>Toggle columns</DropdownMenuGroupLabel>
+          {columns.map((column) => {
+            const headerLabel =
+              column.columnDef.meta?.label ??
+              (typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id)
+            return (
+              <DropdownMenuCheckboxItem
+                key={column.id}
+                checked={column.getIsVisible()}
+                onCheckedChange={(checked) => column.toggleVisibility(checked)}
+                closeOnClick={false}
+              >
+                {headerLabel}
+              </DropdownMenuCheckboxItem>
+            )
+          })}
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   )

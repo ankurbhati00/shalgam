@@ -47,8 +47,9 @@ export function SidebarHeader({ className, ...props }: ComponentPropsWithoutRef<
     <div
       className={cn(
         'flex h-14 shrink-0 items-center gap-2 px-3 sm:h-16',
-        collapsed && 'justify-center px-0',
         className,
+        // Applied last: the icon rail always centres its header, whatever the consumer passes.
+        collapsed && 'justify-center px-0',
       )}
       {...props}
     />

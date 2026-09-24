@@ -32,7 +32,7 @@ export function AppSidebar({ inDrawer = false, onNavigate }: AppSidebarProps) {
       aria-label="Primary"
       className={inDrawer ? 'w-full border-r-0' : undefined}
     >
-      <SidebarHeader className="justify-between">
+      <SidebarHeader className={collapsed ? undefined : 'justify-between'}>
         <Logo compact={collapsed} />
         {!collapsed && !inDrawer && (
           <IconButton
